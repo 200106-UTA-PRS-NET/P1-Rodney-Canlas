@@ -1,0 +1,38 @@
+﻿@model PizzaBox.WebUI.Models.PizzaViewModel
+
+@{
+    ViewData["Title"] = "PresetPizza";
+}
+<h1>Create your pizza: </h1>
+<hr /> <br />
+
+@using (Html.BeginForm("PresetPizza", "Order", FormMethod.Post))
+{
+    <h4>Select pizza type: </h4>
+    @foreach (var topping in ViewData["Toppings"] as IList<string>)
+    {
+        <div> @Html.RadioButtonFor(m => m.Topping, topping) @topping Pizza</div>
+    }
+    <br />
+
+    <h4>Select crust type: </h4>
+    @foreach (var crust in ViewData["Crusts"] as IList<string>)
+    {
+        <div> @Html.RadioButtonFor(m => m.Crust, crust) @crust Crust</div>
+    }
+    <br />
+
+    <h4>Select size: </h4>
+    <p>(Small - $8.00) (Medium - $10.00) (Large - $12.00)</p>
+    @foreach (var size in ViewData["Sizes"] as IList<string>)
+    {
+        <div> @Html.RadioButtonFor(m => m.Size, size) @size</div>
+    }
+    <br />
+
+    <div class="form-group">
+        <input type="submit" value="Add to order" class="btn btn-primary" />
+    </div>
+}
+
+

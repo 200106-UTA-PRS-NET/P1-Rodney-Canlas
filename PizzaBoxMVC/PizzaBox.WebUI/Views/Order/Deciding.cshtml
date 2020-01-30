@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "Deciding";
+}
+
+<h3>Current order: </h3>
+<hr />
+@foreach (var pizza in PizzaBox.Library.SessionObjects.CurrentOrderContent.orderContent as IList<PizzaBox.Library.Models.Pizza>)
+{
+    @foreach (var topping in pizza.Toppings as IList<string>)
+    {
+        <div>
+            <h5>
+                - [@pizza.PizzaType] @pizza.Size @pizza.Crust Crust
+                @PizzaBox.Library.Dependencies.Utilities.ConvertListToString(@pizza.Toppings)
+                Pizza
+            </h5>
+        </div>
+    }
+}
+<br />
+<div>
+    <h5>Total Cost: $@PizzaBox.Library.SessionObjects.CurrentOrderContent.totalCost </h5>
+</div>
+<hr /> <br />
+
+<h4>Would you like to: </h4> <br />
+<div>
+    <button onclick="location.href='@Url.Action("PizzaType", "Order")'" type="button" class="btn btn-secondary btn-lg btn-block">Add to order</button>
+    <button onclick="location.href='@Url.Action("ConfirmOrder", "Order")'" type="button" class="btn btn-success btn-lg btn-block">Confirm order</button>
+    <button onclick="location.href='@Url.Action("DeleteOrder", "Order")'" type="button" class="btn btn-danger btn-lg btn-block">Delete order</button>
+</div>
+

@@ -10,6 +10,19 @@ namespace PizzaBox.WebUI.Controllers
 {
     public class MenuController : Controller
     {
+        public ActionResult WhichMenu()
+        {
+            //return Content($"This user is an admin: {CurrentUser.isAdmin}");
+            
+            if (CurrentUser.isAdmin)
+            {
+                return RedirectToAction(nameof(AdminMenu));
+            }
+            else
+            {
+                return RedirectToAction(nameof(UserMenu));
+            }
+        }
         // GET: Menu/AdminUser
         public ActionResult AdminMenu()
         {

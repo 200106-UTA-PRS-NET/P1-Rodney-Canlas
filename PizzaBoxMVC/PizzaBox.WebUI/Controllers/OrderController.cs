@@ -8,6 +8,7 @@ using PizzaBox.Library.Interfaces;
 using PizzaBox.Library.Models;
 using PizzaBox.WebUI.Models;
 using PizzaBox.Library.SessionObjects;
+using PizzaBox.Library.Dependencies;
 
 
 namespace PizzaBox.WebUI.Controllers
@@ -15,10 +16,12 @@ namespace PizzaBox.WebUI.Controllers
     public class OrderController : Controller
     {
         public IStoreRepo _storeRepo;
+        public IUserOrderRepo _orderRepo;
 
-        public OrderController(IStoreRepo storeRepo)
+        public OrderController(IStoreRepo storeRepo, IUserOrderRepo orderRepo)
         {
             _storeRepo = storeRepo;
+            _orderRepo = orderRepo;
         }
 
         // GET: Order/ChooseLocation
@@ -62,17 +65,88 @@ namespace PizzaBox.WebUI.Controllers
         {
             return View();
         }
-         
+        
+        // GET: Order/PresetPizza
         public ActionResult PresetPizza()
         {
+            ViewData["Toppings"] = PresetType.Toppings();
+            ViewData["Crusts"] = PresetType.Crusts();
+            ViewData["Sizes"] = PresetType.Sizes();
+
             return View();
+        }
+
+        // POST: Order/PresetPizza
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PresetPizza(PizzaViewModel pizzaViewModel)
+        {
+            //try
+            //{
+                Pizza newPizza = new Pizza()
+                {
+                    PizzaType = "Preset",
+                    Crust = pizzaViewModel.Crust,
+                    Size = pizzaViewModel.Size,
+                    Toppings = new List<string>() { pizzaViewModel.Topping }
+                };
+                decimal costOfPizza = Utilities.Cost(pizzaViewModel.Size);
+
+                CurrentOrderContent.orderContent.Add(newPizza);
+                CurrentOrderContent.totalCost += costOfPizza;
+
+                return RedirectToAction(nameof(Deciding));
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         public ActionResult CustomPizza()
         {
             return Content("You are making a custom pizza.");
         }
-        
+
+        public ActionResult Deciding()
+        {
+            return View();
+        }
+
+        public ActionResult ConfirmOrder()
+        {
+            //return Content("You are confirming the order");
+            string orderContent = Utilities.SerializeToXMLString(CurrentOrderContent.orderContent);
+            UserOrder newOrder = new UserOrder()
+            {
+                StoreId = CurrentStore.Id,
+                UserId = CurrentUser.Id,
+                OrderContent = orderContent,
+                TotalCost = CurrentOrderContent.totalCost,
+                OrderDateTime = DateTime.Now
+            };
+            _orderRepo.AddOrder(newOrder);
+            _orderRepo.Save();
+
+            return RedirectToAction(nameof(OrderConfirmed)); 
+        }
+
+        public ActionResult DeletingOrder()
+        {
+            CurrentOrderContent.orderContent = new List<Pizza>();
+            CurrentOrderContent.totalCost = Convert.ToDecimal(0.00);
+
+            return Content("You are deleting the order");
+        }
+
+        public ActionResult OrderConfirmed()
+        {
+            CurrentOrderContent.orderContent = new List<Pizza>();
+            CurrentOrderContent.totalCost = Convert.ToDecimal(0.00);
+
+            return View();
+        }
+
         // GET: Order
         public ActionResult Index()
         {

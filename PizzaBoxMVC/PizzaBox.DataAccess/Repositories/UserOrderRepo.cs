@@ -14,5 +14,16 @@ namespace PizzaBox.DataAccess.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public void AddOrder(Library.Models.UserOrder order)
+        {
+            Entities.UserOrder _order = Mapper.Map(order);
+            _dbContext.Add(_order);
+        }
+
+        public void Save()
+        {
+            _dbContext.SaveChanges();
+        }
     }
 }

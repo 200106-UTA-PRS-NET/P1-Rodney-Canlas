@@ -15,16 +15,16 @@ namespace PizzaBox.DataAccess.Entities
 
         }
 
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Account> Account { get; set; }
         public virtual DbSet<Store> Store { get; set; }
         public virtual DbSet<UserOrder> UserOrder { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Build table structures
-            modelBuilder.Entity<User>(entity =>
+            modelBuilder.Entity<Account>(entity =>
             {
-                entity.ToTable("User", "PizzaBox");
+                entity.ToTable("Account", "PizzaBox");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")

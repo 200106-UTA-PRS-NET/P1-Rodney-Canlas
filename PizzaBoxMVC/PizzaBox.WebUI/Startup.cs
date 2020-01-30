@@ -34,10 +34,10 @@ namespace PizzaBox.WebUI
             services.AddDbContext<PizzaBoxDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            // Adds dependency to use repositories
+            // Adds dependencies to use repositories
             services.AddTransient<IStoreRepo, StoreRepo>();
             services.AddTransient<IUserOrderRepo, UserOrderRepo>();
-            services.AddTransient<IUserRepo, UserRepo>();
+            services.AddTransient<IAccountRepo, AccountRepo>();
 
             services.AddControllersWithViews();
         }

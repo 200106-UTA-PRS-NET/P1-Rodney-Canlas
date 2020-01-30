@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PizzaBox.Library.Models
+namespace PizzaBox.DataAccess.Entities
 {
-    public class User
+    public class Account
     {
         public int Id { get; set; }
         public string Username { get; set; }

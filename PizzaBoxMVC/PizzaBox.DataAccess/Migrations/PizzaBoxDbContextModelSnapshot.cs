@@ -19,6 +19,41 @@ namespace PizzaBox.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("PizzaBox.DataAccess.Entities.Account", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnName("First Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnName("Last Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Passphrase")
+                        .IsRequired()
+                        .HasColumnName("Passphrase")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnName("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Account","PizzaBox");
+                });
+
             modelBuilder.Entity("PizzaBox.DataAccess.Entities.Store", b =>
                 {
                     b.Property<int>("Id")
@@ -51,41 +86,6 @@ namespace PizzaBox.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Store","PizzaBox");
-                });
-
-            modelBuilder.Entity("PizzaBox.DataAccess.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ID")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnName("First Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnName("Last Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Passphrase")
-                        .IsRequired()
-                        .HasColumnName("Passphrase")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnName("Username")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User","PizzaBox");
                 });
 
             modelBuilder.Entity("PizzaBox.DataAccess.Entities.UserOrder", b =>

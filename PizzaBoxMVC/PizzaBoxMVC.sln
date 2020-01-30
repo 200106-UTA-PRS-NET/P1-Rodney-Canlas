@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaBox.WebUI", "PizzaBox.WebUI\PizzaBox.WebUI.csproj", "{36130CFC-DD0A-44FF-AC3F-8E2B0C8A3A46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaBox.WebUI", "PizzaBox.WebUI\PizzaBox.WebUI.csproj", "{36130CFC-DD0A-44FF-AC3F-8E2B0C8A3A46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaBox.DataAccess", "PizzaBox.DataAccess\PizzaBox.DataAccess.csproj", "{CC3AE822-7479-4AD1-ADBD-64CEF61C0FB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaBox.DataAccess", "PizzaBox.DataAccess\PizzaBox.DataAccess.csproj", "{CC3AE822-7479-4AD1-ADBD-64CEF61C0FB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaBox.Library", "PizzaBox.Library\PizzaBox.Library.csproj", "{0CA33365-6D79-4B22-8A96-701EBB7E8FBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaBox.Library", "PizzaBox.Library\PizzaBox.Library.csproj", "{0CA33365-6D79-4B22-8A96-701EBB7E8FBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

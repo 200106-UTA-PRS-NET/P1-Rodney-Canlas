@@ -27,7 +27,8 @@ namespace PizzaBox.WebUI.Controllers
         
         public ActionResult WhichMenu()
         {
-            //return Content($"This user is an admin: {CurrentUser.isAdmin}");
+            CurrentOrderContent.orderContent = new List<Pizza>();
+            CurrentOrderContent.totalCost = Convert.ToDecimal(0.00);
             
             if (CurrentUser.isAdmin)
             {

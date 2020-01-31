@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaBox.DataAccess", "Pizz
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaBox.Library", "PizzaBox.Library\PizzaBox.Library.csproj", "{0CA33365-6D79-4B22-8A96-701EBB7E8FBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaBox.Test", "PizzaBox.Test\PizzaBox.Test.csproj", "{365E8085-6A06-4CD6-B455-EB876EFD103B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0CA33365-6D79-4B22-8A96-701EBB7E8FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CA33365-6D79-4B22-8A96-701EBB7E8FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CA33365-6D79-4B22-8A96-701EBB7E8FBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{365E8085-6A06-4CD6-B455-EB876EFD103B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{365E8085-6A06-4CD6-B455-EB876EFD103B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{365E8085-6A06-4CD6-B455-EB876EFD103B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{365E8085-6A06-4CD6-B455-EB876EFD103B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

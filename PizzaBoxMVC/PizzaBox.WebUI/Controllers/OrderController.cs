@@ -43,23 +43,30 @@ namespace PizzaBox.WebUI.Controllers
 
         public ActionResult ChoseStore(int id)
         {
-            try
+            IEnumerable<UserOrder> orders = _orderRepo.GetOrdersByStoreID(id);
+            bool canOrderFromStore = Utilities.CanOrderFromLocation(CurrentUser.Id, orders);
+            if (canOrderFromStore)
             {
-                Store store = _storeRepo.GetStoreByID(id);
-                
+
+                Store store = _storeRepo.GetStoreByStoreID(id);
+
                 CurrentStore.Id = store.Id;
                 CurrentStore.StoreName = store.StoreName;
                 CurrentStore.City = store.City;
                 CurrentStore.State = store.State;
                 CurrentStore.Zipcode = store.Zipcode;
-                
+
                 return RedirectToAction(nameof(PizzaType));
-            }
-            catch
+            } else
             {
-                return RedirectToAction(nameof(ChooseStore));
+                return RedirectToAction(nameof(CannotOrderFromLocation));
             }
         }
+
+        public ActionResult CannotOrderFromLocation()
+        {
+            return View();
+        } 
 
         public ActionResult PizzaType()
         {
@@ -92,8 +99,13 @@ namespace PizzaBox.WebUI.Controllers
                 };
                 decimal costOfPizza = Utilities.Cost(pizzaViewModel.Size);
 
+            // do a foreach loop COUNT amount of times depending on pizzaViewModel.Count
+            for (int i = 0; i < pizzaViewModel.Count; i++)
+            {
                 CurrentOrderContent.orderContent.Add(newPizza);
                 CurrentOrderContent.totalCost += costOfPizza;
+            }
+                
 
                 return RedirectToAction(nameof(Deciding));
             //}
@@ -115,28 +127,35 @@ namespace PizzaBox.WebUI.Controllers
 
         public ActionResult ConfirmOrder()
         {
-            //return Content("You are confirming the order");
-            string orderContent = Utilities.SerializeToXMLString(CurrentOrderContent.orderContent);
-            UserOrder newOrder = new UserOrder()
+            if (CurrentOrderContent.totalCost <= 250)
             {
-                StoreId = CurrentStore.Id,
-                UserId = CurrentUser.Id,
-                OrderContent = orderContent,
-                TotalCost = CurrentOrderContent.totalCost,
-                OrderDateTime = DateTime.Now
-            };
-            _orderRepo.AddOrder(newOrder);
-            _orderRepo.Save();
+                //return Content("You are confirming the order");
+                string orderContent = Utilities.SerializeToXMLString(CurrentOrderContent.orderContent);
+                UserOrder newOrder = new UserOrder()
+                {
+                    StoreId = CurrentStore.Id,
+                    UserId = CurrentUser.Id,
+                    OrderContent = orderContent,
+                    TotalCost = CurrentOrderContent.totalCost,
+                    OrderDateTime = DateTime.Now
+                };
+                _orderRepo.AddOrder(newOrder);
+                _orderRepo.Save();
 
-            return RedirectToAction(nameof(OrderConfirmed)); 
+                return RedirectToAction(nameof(OrderConfirmed));
+            }
+            else
+            {
+                return RedirectToAction(nameof(DeleteOrder));
+            }
         }
 
-        public ActionResult DeletingOrder()
+        public ActionResult DeleteOrder()
         {
             CurrentOrderContent.orderContent = new List<Pizza>();
             CurrentOrderContent.totalCost = Convert.ToDecimal(0.00);
 
-            return Content("You are deleting the order");
+            return RedirectToAction(nameof(OrderDeleted));
         }
 
         public ActionResult OrderConfirmed()
@@ -144,6 +163,11 @@ namespace PizzaBox.WebUI.Controllers
             CurrentOrderContent.orderContent = new List<Pizza>();
             CurrentOrderContent.totalCost = Convert.ToDecimal(0.00);
 
+            return View();
+        }
+
+        public ActionResult OrderDeleted()
+        {
             return View();
         }
 

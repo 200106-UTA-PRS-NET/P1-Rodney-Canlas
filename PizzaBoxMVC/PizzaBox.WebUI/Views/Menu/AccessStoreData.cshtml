@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<PizzaBox.WebUI.Models.StoreViewModel>
 
 @{
-    ViewData["Title"] = "ChooseStore";
+    ViewData["Title"] = "AccessStoreData";
 }
 
 <h4>Please choose a store to order from.</h4>
+
 @*<p>
-        <a asp-action="Create">Create New</a>
-    </p>*@
-<br />
+    <a asp-action="Create">Create New</a>
+</p>*@
 <table class="table">
     <thead>
         <tr>
@@ -44,16 +44,16 @@
                     @Html.DisplayFor(modelItem => item.Zipcode)
                 </td>
                 <td>
-                    @Html.ActionLink("Choose", "ChoseStore", new { id = item.Id })
-                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                    @Html.ActionLink("Choose", "CompletedOrders", new { id = item.Id })
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<br />
-<br />
+<br /><br />
 <div>
     <button onclick="location.href='@Url.Action("WhichMenu", "Menu")'" type="button" class="btn btn-secondary btn-lg btn-block">Go to menu</button>
 </div>

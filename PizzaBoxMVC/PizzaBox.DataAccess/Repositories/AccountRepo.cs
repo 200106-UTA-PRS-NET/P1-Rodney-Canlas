@@ -37,6 +37,15 @@ namespace PizzaBox.DataAccess.Repositories
             return accounts.Select(Mapper.Map);
         }
 
+        public Library.Models.Account GetUserByUserID(int userId)
+        {
+            IQueryable<Entities.Account> accounts = from u in _dbContext.Account
+                                                    where u.Id == userId
+                                                    select u;
+
+            return accounts.Select(Mapper.Map).FirstOrDefault();
+        }
+
         public void Save()
         {
             _dbContext.SaveChanges();

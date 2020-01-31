@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -59,6 +60,43 @@ namespace PizzaBox.Library.Dependencies
             using (TextReader reader = new StringReader(xml))
             {
                 return (List<Pizza>)serializer.Deserialize(reader);
+            }
+        }
+
+        /** <summary> 
+         *  Checks if the current user can order from the store
+         *      that has a matching ID. 
+         *  </summary>
+         *  <returns> 
+         *  Returns true if the current user has not ordered
+         *      from the store within 24 hours; otherwise, returns false.
+         *  </returns>
+         */
+        public static bool CanOrderFromLocation(int userId, IEnumerable<UserOrder> relevantOrders)
+        {
+            if (relevantOrders.Any(o => o.UserId == userId))
+            {
+                var ordersByUser = from o in relevantOrders
+                                   where o.UserId == userId
+                                   select o;
+
+                UserOrder lastOrderByUser = ordersByUser.OrderBy(o => o.OrderDateTime).Last();
+                DateTime lastOrderDateTime = lastOrderByUser.OrderDateTime;
+
+                TimeSpan orderGap = DateTime.Now - lastOrderDateTime;
+
+                if (orderGap.TotalDays >= 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
             }
         }
     }

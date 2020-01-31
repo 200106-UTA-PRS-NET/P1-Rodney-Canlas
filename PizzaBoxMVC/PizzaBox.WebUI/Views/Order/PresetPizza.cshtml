@@ -3,31 +3,37 @@
 @{
     ViewData["Title"] = "PresetPizza";
 }
-<h1>Create your pizza: </h1>
+<h4>Create your pizza: </h4>
 <hr /> <br />
 
 @using (Html.BeginForm("PresetPizza", "Order", FormMethod.Post))
 {
-    <h4>Select pizza type: </h4>
+    <h5>Select pizza type: </h5>
     @foreach (var topping in ViewData["Toppings"] as IList<string>)
     {
         <div> @Html.RadioButtonFor(m => m.Topping, topping) @topping Pizza</div>
     }
     <br />
 
-    <h4>Select crust type: </h4>
+    <h5>Select crust type: </h5>
     @foreach (var crust in ViewData["Crusts"] as IList<string>)
     {
         <div> @Html.RadioButtonFor(m => m.Crust, crust) @crust Crust</div>
     }
     <br />
 
-    <h4>Select size: </h4>
+    <h5>Select size: </h5>
     <p>(Small - $8.00) (Medium - $10.00) (Large - $12.00)</p>
     @foreach (var size in ViewData["Sizes"] as IList<string>)
     {
         <div> @Html.RadioButtonFor(m => m.Size, size) @size</div>
     }
+    <br />
+
+    <div>
+        <h6>Number of pizzas: <input asp-for="Count" type="number" min="1" max="100" /> </h6> 
+        <p><strong><em>*Orders that cost more than $250 will be deleted.*</em></strong></p>
+    </div>
     <br />
 
     <div class="form-group">

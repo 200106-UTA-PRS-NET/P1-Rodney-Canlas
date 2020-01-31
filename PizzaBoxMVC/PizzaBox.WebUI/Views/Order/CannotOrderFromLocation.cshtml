@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "CannotOrderFromLocation";
+}
+
+<h1>Cannot order from the same location within 24 hours.</h1>
+<hr />
+<br />
+<h4>What would you like to do now?</h4>
+<br />
+<div>
+    <button onclick="location.href='@Url.Action("ChooseStore", "Order")'" type="button" class="btn btn-primary btn-lg btn-block">Choose another location</button>
+    <button onclick="location.href='@Url.Action("WhichMenu", "Menu")'" type="button" class="btn btn-primary btn-lg btn-block">Go to menu</button>
+</div>
+

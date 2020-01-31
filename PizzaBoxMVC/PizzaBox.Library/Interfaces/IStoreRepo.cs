@@ -8,6 +8,8 @@ namespace PizzaBox.Library.Interfaces
     public interface IStoreRepo
     {
         IEnumerable<Store> GetStores();
-        Store GetStoreByID(int id);
+
+        Store GetStoreByStoreID(int id);
+
     }
 }

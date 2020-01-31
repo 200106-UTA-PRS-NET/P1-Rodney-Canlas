@@ -23,7 +23,7 @@ namespace PizzaBox.DataAccess.Repositories
             return stores.Select(Mapper.Map);
         }
 
-        public Library.Models.Store GetStoreByID(int id)
+        public Library.Models.Store GetStoreByStoreID(int id)
         {
             IQueryable<Entities.Store> stores = from s in _dbContext.Store
                                                 where s.Id == id
@@ -32,5 +32,6 @@ namespace PizzaBox.DataAccess.Repositories
             return stores.Select(Mapper.Map).FirstOrDefault();
         }
 
+        
     }
 }

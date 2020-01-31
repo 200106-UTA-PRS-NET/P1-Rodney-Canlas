@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "OrderDeleted";
+}
+
+<h1>Your order is deleted.</h1>
+<hr />
+<br />
+<h4>What would you like to do now?</h4>
+<br />
+<div>
+    <button onclick="location.href='@Url.Action("WhichMenu", "Menu")'" type="button" class="btn btn-primary btn-lg btn-block">Go to menu</button>
+    <button onclick="location.href='@Url.Action("SignOut", "Menu")'" type="button" class="btn btn-secondary btn-lg btn-block">Sign out</button>
+</div>

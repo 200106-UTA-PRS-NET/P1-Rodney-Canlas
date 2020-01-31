@@ -5,11 +5,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PizzaBox.Library.SessionObjects;
+using PizzaBox.Library.Interfaces;
+using PizzaBox.Library.Models;
+using PizzaBox.WebUI.Models;
+using PizzaBox.Library.Dependencies;
 
 namespace PizzaBox.WebUI.Controllers
 {
     public class MenuController : Controller
     {
+        public IUserOrderRepo _orderRepo;
+        public IStoreRepo _storeRepo;
+        public IAccountRepo _accountRepo;
+        
+        public MenuController(IUserOrderRepo orderRepo, IStoreRepo storeRepo, IAccountRepo accountRepo)
+        {
+            _orderRepo = orderRepo;
+            _storeRepo = storeRepo;
+            _accountRepo = accountRepo;
+        }
+        
         public ActionResult WhichMenu()
         {
             //return Content($"This user is an admin: {CurrentUser.isAdmin}");
@@ -32,6 +47,7 @@ namespace PizzaBox.WebUI.Controllers
         // GET: Menu/UserMenu
         public ActionResult UserMenu()
         {
+            string test = CurrentUser.FirstName;
             return View();
         }
 
@@ -47,12 +63,49 @@ namespace PizzaBox.WebUI.Controllers
 
         public ActionResult ViewOrderHistory()
         {
-            return Content("You are viewing order history.");
+            Dictionary<int, string> storeDictionary = Dictionary.StoreDictionary();
+            IEnumerable<UserOrder> orders = _orderRepo.GetOrdersByUserID(CurrentUser.Id);
+            IEnumerable<OrderHistoryViewModel> userOrderViewModels = orders.Select(x => new OrderHistoryViewModel
+            {
+                StoreName = storeDictionary[x.StoreId],
+                OrderDateTime = x.OrderDateTime,
+                TotalCost = x.TotalCost,
+                OrderContent = Utilities.DeserializeFromXMLString(x.OrderContent)
+            });
+
+            return View(userOrderViewModels);
         }
 
         public ActionResult AccessStoreData()
         {
-            return Content("You are accessing store data.");
+            IEnumerable<Store> stores = _storeRepo.GetStores();
+            IEnumerable<StoreViewModel> storeViewModels = stores.Select(x => new StoreViewModel
+            {
+                Id = x.Id,
+                StoreName = x.StoreName,
+                City = x.City,
+                State = x.State,
+                Zipcode = x.Zipcode
+            });
+            return View(storeViewModels);
+        }
+
+        public ActionResult CompletedOrders(int id)
+        {
+            IEnumerable<Account> accounts = _accountRepo.GetAccounts();
+            Dictionary<int, string> accountDictionary = Dictionary.AccountDictionary(accounts);
+            IEnumerable<UserOrder> orders = _orderRepo.GetOrdersByStoreID(id);
+            IEnumerable<CompletedOrdersViewModel> completedOrdersViewModels = orders.Select(x => new CompletedOrdersViewModel
+            {
+ 
+                FullName = accountDictionary[x.UserId],
+                OrderDateTime = DateTime.Now,
+                TotalCost = x.TotalCost,
+                OrderContent = Utilities.DeserializeFromXMLString(x.OrderContent)
+            }) ;
+            ViewData["StoreName"] = Dictionary.StoreDictionary()[id];
+
+            return View(completedOrdersViewModels);
         }
 
         public ActionResult SignOut()

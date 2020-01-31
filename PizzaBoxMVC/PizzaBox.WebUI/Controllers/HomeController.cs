@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PizzaBox.WebUI.Models;
+using PizzaBox.Library.SessionObjects;
 
 namespace PizzaBox.WebUI.Controllers
 {

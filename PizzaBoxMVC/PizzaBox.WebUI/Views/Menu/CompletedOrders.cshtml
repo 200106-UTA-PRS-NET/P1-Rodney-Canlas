@@ -1,0 +1,57 @@
+﻿@model IEnumerable<PizzaBox.WebUI.Models.CompletedOrdersViewModel>
+
+@{
+    ViewData["Title"] = "CompletedOrders";
+}
+
+    <h4>Viewing completed orders for @ViewData["StoreName"]</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDateTime)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @foreach (var pizza in item.OrderContent as IList<PizzaBox.Library.Models.Pizza>)
+                {
+                    <div>
+                        <p>
+                            - [@pizza.PizzaType] @pizza.Size @pizza.Crust Crust
+                            @PizzaBox.Library.Dependencies.Utilities.ConvertListToString(@pizza.Toppings)
+                            Pizza
+                        </p>
+                    </div>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDateTime)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<hr /> <br />
+<div>
+    <button onclick="location.href='@Url.Action("WhichMenu", "Menu")'" type="button" class="btn btn-primary btn-lg btn-block">Go to menu</button>
+</div>

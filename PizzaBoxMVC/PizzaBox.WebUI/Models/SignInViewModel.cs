@@ -11,6 +11,7 @@ namespace PizzaBox.WebUI.Models
         [Required(ErrorMessage = "Username must have a value.")]
         public string Username { get; set; }
 
+        [DataType(DataType.Password)]
         [Required(ErrorMessage = "Passphrase must have a value.")]
         public string Passphrase { get; set; }
     }

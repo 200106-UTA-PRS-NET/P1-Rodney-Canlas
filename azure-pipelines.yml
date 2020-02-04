@@ -12,6 +12,8 @@ pool:
 variables:
   buildConfiguration: 'Release'
   pathToSolution: 'PizzaBoxMVC/'
+  pathToTest: 'PizzaBoxMVC/PizzaBox.Test'
+  pathToProject: 'PizzaBoxMVC/PizzaBox.WebUI'
 
 steps:
 - script:
@@ -30,8 +32,5 @@ steps:
 
 - task: PublishTestResults@2
   inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: '*.trx'
-    searchFolder: '$(Build.ArtifactStagingDirectory)/test'
-  displayName: 'Publish test results'
-    
+    testResultsFormat: 'XUnit'
+    testResultsFiles: '**/TEST-*.xml'

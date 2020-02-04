@@ -49,18 +49,34 @@ steps:
 
 - task: SonarCloudAnalyze@1
 
+# - task: DotNetCoreCLI@2
+#   inputs:
+#     command: 'publish'
+#     arguments: --configuration $(buildConfiguration)
+#     publishWebProjects: true
+#     zipAfterPublish: true
+#     workingDirectory: '$(pathToSolution)'
+#   displayName: 'dotnet publish + zip'
+
+# - task: AzureWebApp@1
+#   inputs:
+#     azureSubscription: 'Azure subscription 1(6701e12e-66a1-4ee7-b304-8f8292024374)'
+#     appType: 'webAppLinux'
+#     appName: 'pizzariamvcdos'
+#     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    arguments: --configuration $(buildConfiguration)
     publishWebProjects: true
     zipAfterPublish: true
+    arguments: '--configuration $(buildConfiguration)'
     workingDirectory: '$(pathToSolution)'
   displayName: 'dotnet publish + zip'
 
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'Azure subscription 1(6701e12e-66a1-4ee7-b304-8f8292024374)'
+    azureSubscription: 'Azure subscription (6701e12e-66a1-4ee7-b304-8f8292024374)'
     appType: 'webAppLinux'
     appName: 'pizzariamvcdos'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'

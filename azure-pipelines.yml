@@ -19,13 +19,12 @@ steps:
   workingDirectory: $(pathToSolution)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- script:
-    dotnet test
-      --configuration $(buildConfiguration)
-      --logger trx
-      --no-build
-      --results-directory $(Build.ArtifactStagingDirectory)/test
-      /p:CollectCoverage=true
+- script: dotnet test
+    --configuration $(buildConfiguration)
+    --logger trx
+    --no-build
+    --results-directory $(Build.ArtifactStagingDirectory)/test/
+    /p:CollectCoverage=true
   workingDirectory: $(pathToSolution)
   displayName: 'dotnet test'
 

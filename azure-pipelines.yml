@@ -28,7 +28,7 @@ steps:
   workingDirectory: $(pathToSolution)
   displayName: 'dotnet test'
 
-- task: PublishTestResults@82
+- task: PublishTestResults@2
   inputs:
     testResultsFormat: 'VSTest'
     testResultsFiles: '*.trx'

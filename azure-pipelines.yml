@@ -12,8 +12,17 @@ pool:
 variables:
   buildConfiguration: 'Release'
   pathToSolution: 'PizzaBoxMVC/'
+  pathToTest: 'PizzaBoxMVC/PizzaBox.Test'
+  pathToProject: 'PizzaBoxMVC/PizzaBox.WebUI'
 
 steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'rjsonarcloud'
+    organization: 'canlasrjdotnet'
+    scannerMode: 'MSBuild'
+    projectKey: 'rjsonar'
+
 - script:
     dotnet build --configuration $(buildConfiguration)
   workingDirectory: $(pathToSolution)
@@ -28,10 +37,15 @@ steps:
   workingDirectory: $(pathToSolution)
   displayName: 'dotnet test'
 
-- task: PublishTestResults@2
+- task: DotNetCoreCLI@2
   inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: '*.trx'
-    searchFolder: '$(Build.ArtifactStagingDirectory)/test'
-  displayName: 'Publish test results'
-    
+    command: 'test'
+    projects: '$(pathToTest)'
+    workingDirectory: '$(pathToSolution)'
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
+- task: SonarCloudAnalyze@1
+

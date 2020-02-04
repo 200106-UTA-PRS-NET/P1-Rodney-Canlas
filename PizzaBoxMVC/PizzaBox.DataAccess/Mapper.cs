@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PizzaBox.DataAccess
+﻿namespace PizzaBox.DataAccess
 {
     public static class Mapper
     {

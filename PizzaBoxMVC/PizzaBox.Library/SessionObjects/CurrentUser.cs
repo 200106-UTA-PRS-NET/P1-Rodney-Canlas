@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PizzaBox.Library.SessionObjects
+﻿namespace PizzaBox.Library.SessionObjects
 {
     public static class CurrentUser
     {

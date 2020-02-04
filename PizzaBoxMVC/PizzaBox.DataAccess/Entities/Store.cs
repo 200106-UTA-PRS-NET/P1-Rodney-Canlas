@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PizzaBox.DataAccess.Entities
+﻿namespace PizzaBox.DataAccess.Entities
 {
     public class Store
     {

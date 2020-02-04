@@ -1,7 +1,4 @@
 ﻿using PizzaBox.Library.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace PizzaBox.Test.Library.Models

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PizzaBox.Library.Models
+﻿namespace PizzaBox.Library.Models
 {
     public class Account
     {

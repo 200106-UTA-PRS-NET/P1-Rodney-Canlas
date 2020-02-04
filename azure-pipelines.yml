@@ -16,6 +16,13 @@ variables:
   pathToProject: 'PizzaBoxMVC/PizzaBox.WebUI'
 
 steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'rjsonarcloud'
+    organization: 'canlasrjdotnet'
+    scannerMode: 'MSBuild'
+    projectKey: 'rjsonar'
+
 - script:
     dotnet build --configuration $(buildConfiguration)
   workingDirectory: $(pathToSolution)
@@ -35,4 +42,10 @@ steps:
     command: 'test'
     projects: '$(pathToTest)'
     workingDirectory: '$(pathToSolution)'
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
+- task: SonarCloudAnalyze@1
 

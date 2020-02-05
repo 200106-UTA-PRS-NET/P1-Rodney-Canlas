@@ -45,8 +45,7 @@ namespace PizzaBox.WebUI.Controllers
         
         // GET: Menu/UserMenu
         public ActionResult UserMenu()
-        {
-            string test = CurrentUser.FirstName;
+        { 
             return View();
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace PizzaBox.Library.SessionObjects
 {
-    public class CurrentStore
+    public static class CurrentStore
     {
         public static int Id { get; set; }
         public static string StoreName { get; set; }

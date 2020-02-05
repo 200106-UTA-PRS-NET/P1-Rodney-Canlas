@@ -86,31 +86,22 @@ namespace PizzaBox.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PresetPizza(PizzaViewModel pizzaViewModel)
         {
-            //try
-            //{
-                Pizza newPizza = new Pizza()
-                {
-                    PizzaType = "Preset",
-                    Crust = pizzaViewModel.Crust,
-                    Size = pizzaViewModel.Size,
-                    Toppings = new List<string>() { pizzaViewModel.Topping }
-                };
-                decimal costOfPizza = Utilities.Cost(pizzaViewModel.Size);
+            Pizza newPizza = new Pizza()
+            {
+                PizzaType = "Preset",
+                Crust = pizzaViewModel.Crust,
+                Size = pizzaViewModel.Size,
+                Toppings = new List<string>() { pizzaViewModel.Topping }
+            };
+            decimal costOfPizza = Utilities.Cost(pizzaViewModel.Size);
 
-            // do a foreach loop COUNT amount of times depending on pizzaViewModel.Count
+            
             for (int i = 0; i < pizzaViewModel.Count; i++)
             {
                 CurrentOrderContent.orderContent.Add(newPizza);
                 CurrentOrderContent.totalCost += costOfPizza;
             }
-                
-
                 return RedirectToAction(nameof(Deciding));
-            //}
-            //catch
-            //{
-            //    return View();
-            //}
         }
 
         public ActionResult CustomPizza()
@@ -127,7 +118,6 @@ namespace PizzaBox.WebUI.Controllers
         {
             if (CurrentOrderContent.totalCost <= 250)
             {
-                //return Content("You are confirming the order");
                 string orderContent = Utilities.SerializeToXMLString(CurrentOrderContent.orderContent);
                 UserOrder newOrder = new UserOrder()
                 {

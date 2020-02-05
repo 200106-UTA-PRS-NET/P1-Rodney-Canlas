@@ -29,10 +29,10 @@ namespace PizzaBox.DataAccess.Repositories
             return orders.Select(Mapper.Map);
         }
 
-        public IEnumerable<Library.Models.UserOrder> GetOrdersByUserID(int userId)
+        public IEnumerable<Library.Models.UserOrder> GetOrdersByUserID(int id)
         {
             IQueryable<Entities.UserOrder> orders = from o in _dbContext.UserOrder
-                                                    where o.UserId == userId
+                                                    where o.UserId == id
                                                     select o;
             return orders.Select(Mapper.Map);
         }

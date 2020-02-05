@@ -58,10 +58,10 @@ steps:
     workingDirectory: '$(pathToSolution)'
   displayName: 'dotnet publish + zip'
 
-- task: AzureRmWebAppDeployment@4
+- task: AzureWebApp@1
   inputs:
-    ConnectionType: 'AzureRM'
     azureSubscription: 'Azure subscription 1(6701e12e-66a1-4ee7-b304-8f8292024374)'
     appType: 'webAppLinux'
-    WebAppName: 'pizzariamvcdos'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    appName: 'pizzariamvcdos'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    runtimeStack: 'dotnetcore'

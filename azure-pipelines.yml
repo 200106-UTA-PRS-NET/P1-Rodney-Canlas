@@ -62,6 +62,5 @@ steps:
   inputs:
     azureSubscription: 'Azure subscription 1(6701e12e-66a1-4ee7-b304-8f8292024374)'
     appType: 'webAppLinux'
-    appName: 'pizzariamvcdos'
+    appName: 'pizzariamvc'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    runtimeStack: 'dotnetcore'
